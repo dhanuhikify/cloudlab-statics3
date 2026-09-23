@@ -7,74 +7,44 @@ Requirements
 AWS Account
 Amazon S3
 Amazon CloudFront
-HTML file
-CSS file
+HTML
+CSS
 Web Browser
-Step 1: Create an S3 Bucket
+Step 1: Create S3 Bucket
 Login to the AWS Management Console.
 Search for S3.
-Open Amazon S3.
+Click S3.
 Click Create bucket.
 Select the required AWS Region.
-
 Enter a unique Bucket name.
-
-Example:
-
-cloud-computing-lab10-2026
-Under Block Public Access settings, uncheck Block all public access as specified in the lab manual.
+Under Block Public Access settings, uncheck Block all public access.
 Acknowledge the warning.
 Keep the remaining settings as default.
 Click Create bucket.
 Step 2: Enable Static Website Hosting
-Open the newly created S3 bucket.
-Click the Properties tab.
+Open the created S3 bucket.
+Click Properties.
 Scroll down to Static website hosting.
 Click Edit.
 Select Enable.
 Select Host a static website.
-
-In Index document, enter:
-
+Enter the following as the Index document:
 index.html
 Click Save changes.
-Step 3: Add Bucket Policy
-Open the Permissions tab.
-Scroll down to Bucket policy.
-Click Edit.
-Add the following policy.
-Replace BUCKET_NAME with your actual bucket name.
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "PublicReadGetObject",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:*",
-      "Resource": [
-        "arn:aws:s3:::BUCKET_NAME/*",
-        "arn:aws:s3:::BUCKET_NAME"
-      ]
-    }
-  ]
-}
-Click Save changes.
-Step 4: Create Website Files
+Step 3: Create Website Files
 
-Create a file named:
+Create the following files:
 
+Lab10/
+├── index.html
+└── style.css
 index.html
-
-Add the following code:
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Cloud Computing Lab 10</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <h1>Cloud Computing Lab 10</h1>
@@ -90,13 +60,7 @@ Add the following code:
 
 </body>
 </html>
-
-Create another file named:
-
 style.css
-
-Add:
-
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -120,44 +84,60 @@ button {
     padding: 10px 20px;
     font-size: 16px;
 }
-
-The files should be:
-
-Lab10/
-├── index.html
-└── style.css
-Step 5: Upload Website Files to S3
-Open your S3 bucket.
-Select Objects.
+Step 4: Add Bucket Policy
+Open the S3 bucket.
+Click Permissions.
+Scroll down to Bucket policy.
+Click Edit.
+Add the following policy.
+Replace BUCKET_NAME with your actual bucket name.
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::BUCKET_NAME/*",
+        "arn:aws:s3:::BUCKET_NAME"
+      ]
+    }
+  ]
+}
+Click Save changes.
+Step 5: Upload Website Files
+Open the S3 bucket.
+Click Objects.
 Click Upload.
-
 Select:
-
 index.html
 style.css
 Click Upload.
-Verify that both files are displayed under Objects.
-Step 6: Test the S3 Website
-Go to the Properties tab.
+Verify that both files are displayed in the bucket.
+Step 6: Test S3 Website
+Go to Properties.
 Find Static website hosting.
 Copy the Bucket website endpoint.
 Open the endpoint in a web browser.
-The website should be displayed.
+Verify that the website is displayed.
 Step 7: Create CloudFront Distribution
-Go to the AWS Console.
+Open the AWS Management Console.
 Search for CloudFront.
 Open CloudFront.
 Click Create distribution.
-Under Origin domain, enter the S3 static website endpoint.
+Under Origin domain, use the S3 static website URL.
 Remove https:// from the beginning if required.
-
 Set the viewer protocol policy to:
-
 Redirect HTTP to HTTPS
 Configure the allowed HTTP methods.
 Click Create distribution.
-Step 8: Access the Website Through CloudFront
-Wait for the CloudFront distribution to become Deployed.
+Step 8: Wait for CloudFront Deployment
+Open the CloudFront Distributions page.
+Find your distribution.
+Wait until the distribution status becomes Deployed.
+Step 9: Open CloudFront Website
 Copy the Distribution domain name.
 Open a new browser tab.
 Enter the CloudFront URL.
@@ -166,7 +146,7 @@ Example:
 
 https://xxxxxxxxxxxx.cloudfront.net
 The static website should be displayed.
-Step 9: Verify the Website
+Step 10: Verify Output
 
 The website should display:
 
@@ -178,6 +158,3 @@ This website is deployed using Amazon S3
 and AWS CloudFront.
 
 [ Welcome to AWS ]
-Result
-
-Thus, the static web application was successfully deployed using Amazon S3 and accessed through Amazon CloudFront.
